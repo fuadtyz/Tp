@@ -3,47 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Realistik</title>
+    <title>Handphone Interaktif</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
-        .clock-container, .cat-container {
-            margin-top: 20px;
-        }
-        .clock {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-        .cat {
+        .phone {
             width: 300px;
-            height: auto;
+            height: 600px;
+            background-color: #000;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .screen {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .camera, .speaker, .home-button {
+            background-color: #333;
+            border-radius: 5px;
+            position: absolute;
+        }
+        .camera {
+            width: 50px;
+            height: 5px;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .speaker {
+            width: 80px;
+            height: 5px;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .home-button {
+            width: 50px;
+            height: 50px;
+            background-color: #333;
+            border-radius: 50%;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .app {
+            width: 80px;
+            height: 80px;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 10px;
+            position: absolute;
+            cursor: pointer;
+        }
+        .app:nth-child(1) {
+            top: 60px;
+            left: 30px;
+        }
+        .app:nth-child(2) {
+            top: 60px;
+            right: 30px;
+        }
+        .app:nth-child(3) {
+            bottom: 100px;
+            left: 30px;
+        }
+        .app:nth-child(4) {
+            bottom: 100px;
+            right: 30px;
         }
     </style>
 </head>
 <body>
-    <div class="clock-container">
-        <div class="clock" id="clock"></div>
-    </div>
-    <div class="cat-container">
-        <img src="https://placekitten.com/300/300" alt="Realistic Cat" class="cat">
+    <div class="phone">
+        <div class="camera"></div>
+        <div class="speaker"></div>
+        <div class="screen" id="screen">
+            <div class="app" onclick="openApp('Camera')">Camera</div>
+            <div class="app" onclick="openApp('Messages')">Messages</div>
+            <div class="app" onclick="openApp('Contacts')">Contacts</div>
+            <div class="app" onclick="openApp('Browser')">Browser</div>
+        </div>
+        <div class="home-button" onclick="goHome()"></div>
     </div>
     <script>
-        function updateClock() {
-            var now = new Date();
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var seconds = now.getSeconds();
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-            document.getElementById('clock').textContent = hours + ':' + minutes + ':' + seconds;
+        function openApp(appName) {
+            var screen = document.getElementById('screen');
+            screen.innerHTML = '<div style="padding: 20px; color: #333;">' + appName + ' App</div>';
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+
+        function goHome() {
+            var screen = document.getElementById('screen');
+            screen.innerHTML = `
+                <div class="app" onclick="openApp('Camera')">Camera</div>
+                <div class="app" onclick="openApp('Messages')">Messages</div>
+                <div class="app" onclick="openApp('Contacts')">Contacts</div>
+                <div class="app" onclick="openApp('Browser')">Browser</div>
+            `;
+        }
     </script>
 </body>
 </html>
