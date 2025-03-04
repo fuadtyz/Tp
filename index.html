@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web TV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .tv-container {
+            width: 80%;
+            margin: 0 auto;
+            background: #333;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        video {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .channel-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="tv-container">
+        <h1>Web TV</h1>
+        <video id="tv-screen" controls>
+            Your browser does not support the video tag.
+        </video>
+        <div>
+            <button class="channel-button" onclick="changeChannel('channel1.m3u8')">Channel 1</button>
+            <button class="channel-button" onclick="changeChannel('channel2.m3u8')">Channel 2</button>
+            <button class="channel-button" onclick="changeChannel('channel3.m3u8')">Channel 3</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        function changeChannel(channel) {
+            var video = document.getElementById('tv-screen');
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(channel);
+                hls.attachMedia(video);
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = channel;
+            }
+            video.play();
+        }
+    </script>
+</body>
+</html>
